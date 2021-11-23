@@ -1,0 +1,5 @@
+ansible-vault create group_vars/all/aws.yml
+
+access_key: ASIAW2S2R62Z5EVU26VA
+secret_key: hFBL5VB5Tj0buAC2bS+rpTs+2Hscae+9ICmwWhHH
+session_token: FwoGZXIvYXdzEJP//////////wEaDPcTkJbuYas0uBZGyiK3Ad9CeFM9iMzFi55LIgCGSJ2Rg9jeLSVDNcASQtqdChaF9+qBFyuWVJUcdxRMkqlpkmFySmK8abcfhXF1uYR3eld+Jn3VFT+3Oc+dHCbzq6Iez1tTbifeSKf2klOrgyZ32H5grMV05zk6qt1j/7db8/3FpobuUC8RDmxlfGUkLHjrHb5Cp1wPe0w2LRAi64ZYZhOleGJ+xz89S8HFGxdoKpSk4uW6y2XX27vOr8VwYRh94pGVoJerRSjixvSMBjItjTnQ+Xi6mgmtXWmQgUJf/9UMQZ+OArMhdCBBDPn6AKKrb7ahC4InvIXsrFh+
