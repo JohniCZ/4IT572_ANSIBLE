@@ -5,30 +5,33 @@
   tasks:
     - name: Launch EC2 instance
       amazon.aws.ec2:
-        instance_type: t2.micro
+        instance_type: t2.small
         image: ami-04902260ca3d33422
         region: us-east-1
         key_name: devops
         vpc_subnet_id: subnet-04cce8dc41a84f34e
-        assing_public_ip: yes
+        assign_public_ip: yes
+        count: 1
         group: eshop
         wait: true
-        count: 1
         aws_access_key: "ASIAW2S2R62ZRAW2JVGR"
         aws_secret_key: "XDDvBAFDe4ui4DZbGd3Sf0pxG9UwmFR6b9aqrq74"
         security_token: "FwoGZXIvYXdzEDoaDGUCQg0DOIn0Ji1pKSK3ARSZnrwEKNGuoA0BmELxhfmDpjiQeyfiLSbpP2a7vabvE43QTW1uFQhdpQG8bHT/hfpPiAY4oEvyfHtFJQ37WzwhbLP1yhxUTKPeY+eKssjh1Gs86CgFcOXIpzq3WMYeTUgNWIrgAth+8sAVtVXih4QdhsvPwTpvz4hpXjR4WR8JyeBTbEC8C4wIMGh/0jHUz9xGt7GWSJI2jAaVwEJ+uMJ1lnTMTsm/AhICqMJu1GIWEENUXyAHQSiqsJmNBjItCg6rf99xLzq/MGJzbfOvY6aJCFbRBDR5TIEvvDJNKuQHIork5XZWCHdCXxQ2"
       register: ec2
-    - name: Add instance to a host group
+
+    - name: Add new instance to host group
       add_host:
         hostname: "{{ item.public_ip }}"
         groupname: launched
       loop: "{{ ec2.instances }}"
+
     - name: Wait for SSH to come up
       delegate_to: "{{ item.public_dns_name }}"
       wait_for_connection:
         delay: 30
         timeout: 300
       loop: "{{ ec2.instances }}"
+
 - name: Configure EC2
   hosts: launched
   connection: ssh
@@ -62,7 +65,7 @@
 
     - name: Checkout Git repo
       git:
-        repo: "https://github.com/kubahrom/4IT572_docker.git"
+        repo: "https://github.com/JohniCZ/4IT572_ANSIBLE.git"
         dest: ./app
 
     - name: Build eshop docker
