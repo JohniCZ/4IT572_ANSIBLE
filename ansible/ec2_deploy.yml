@@ -14,9 +14,9 @@
         count: 1
         group: eshop
         wait: true
-        aws_access_key: "ASIAW2S2R62ZRAW2JVGR"
-        aws_secret_key: "XDDvBAFDe4ui4DZbGd3Sf0pxG9UwmFR6b9aqrq74"
-        security_token: "FwoGZXIvYXdzEDoaDGUCQg0DOIn0Ji1pKSK3ARSZnrwEKNGuoA0BmELxhfmDpjiQeyfiLSbpP2a7vabvE43QTW1uFQhdpQG8bHT/hfpPiAY4oEvyfHtFJQ37WzwhbLP1yhxUTKPeY+eKssjh1Gs86CgFcOXIpzq3WMYeTUgNWIrgAth+8sAVtVXih4QdhsvPwTpvz4hpXjR4WR8JyeBTbEC8C4wIMGh/0jHUz9xGt7GWSJI2jAaVwEJ+uMJ1lnTMTsm/AhICqMJu1GIWEENUXyAHQSiqsJmNBjItCg6rf99xLzq/MGJzbfOvY6aJCFbRBDR5TIEvvDJNKuQHIork5XZWCHdCXxQ2"
+        aws_access_key: "{{ access_key }}"
+        aws_secret_key: "{{ secret_key }}"
+        security_token: "{{ session_token }}"
       register: ec2
 
     - name: Add new instance to host group
@@ -66,7 +66,7 @@
 
     - name: Checkout Git repo
       git:
-        repo: "https://github.com/JohniCZ/4IT572_ANSIBLE.git"
+        repo: "https://github.com/JohniCZ/-4IT572_docker.git"
         dest: ./app
 
     - name: Build eshop docker
