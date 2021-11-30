@@ -29,43 +29,51 @@
         delay: 30
         timeout: 300
       loop: "{{ ec2.instances }}"
-    - name: Configer EC2
-      hosts: launched
-      connection: ssh
+- name: Configure EC2
+  hosts: launched
+  connection: ssh
 
-      tasks:
-        - name: Add Centos Extras
-          shell: yum-config-manager --enable extras
-          become: yes
-        - name: Enable docker package
-          shell: amazon-linux-extras enable docker
-          become: yes
-        - name: Install docker and git
-          yum:
-            name:
-              - docker
-              - git
-            state: latest
-            update_cache: yes
-          become: yes
-        - service:
-            name: docker
-            state: started
-            enabled: yes
-        - name: Set rights to docker
-          shell: usermod -a -G docker ec2-user
-          become: yes
-        - name: Checkout git repo
-          git:
-            repo: "https://github.com/JohniCZ/-4IT572_docker.git"
-            dest: ./app
-        - name: Build docker
-          shell: cd app && docker build -t eshop:latest .
-          become: yes
-        - name: Run docker
-          shell: docker run -p 80:3000 eshop
-          async: 45
-          poll: 0
-          become: yes
-        - wait_for:
-            port: 80
+  tasks:
+    - name: Add Centos Extras
+      shell: yum-config-manager --enable extras
+      become: yes
+
+    - name: Enable docker package
+      shell: amazon-linux-extras enable docker
+      become: yes
+
+    - name: Install Docker and Git
+      yum:
+        name:
+          - docker
+          - git
+        state: latest
+        update_cache: yes
+      become: yes
+
+    - service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Set rights to Docker
+      shell: usermod-a -G docker ec2-user
+      become: yes
+
+    - name: Checkout Git repo
+      git:
+        repo: "https://github.com/kubahrom/4IT572_docker.git"
+        dest: ./app
+
+    - name: Build eshop docker
+      shell: cd app && docker build -t eshop:latest .
+      become: yes
+
+    - name: Run eshop
+      shell: docker run -p 80:3000 eshop
+      async: 45
+      poll: 0
+      become: yes
+
+    - wait_for:
+        port: 80
